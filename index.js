@@ -20,6 +20,8 @@ app.use(cors({
     "http://localhost:3000",       // Local frontend
     "https://mazzo-bay.vercel.app", // Future deployed frontend
     "capacitor://localhost",       // Mobile app (future)
+    "http://localhost",            // Standard Capacitor Android
+    "https://localhost",           // Standard Capacitor iOS/Android
     "http://10.0.2.2:3000",        // Android Emulator Frontend
     "http://10.0.2.2:5000"         // Android Emulator Backend
   ],
