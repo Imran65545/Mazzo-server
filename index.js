@@ -18,7 +18,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",       // Local frontend
-    "https://mazzo-music.vercel.app", // Future deployed frontend
+    "https://mazzo-bay.vercel.app", // Future deployed frontend
     "capacitor://localhost"        // Mobile app (future)
   ],
   credentials: true
