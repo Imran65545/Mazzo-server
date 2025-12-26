@@ -15,7 +15,14 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",       // Local frontend
+    "https://mazzo-music.vercel.app", // Future deployed frontend
+    "capacitor://localhost"        // Mobile app (future)
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
