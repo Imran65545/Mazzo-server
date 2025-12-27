@@ -4,6 +4,9 @@ import Song from "../models/Song.js";
 const YT_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const YT_VIDEO_URL = "https://www.googleapis.com/youtube/v3/videos";
 
+import NodeCache from "node-cache";
+const myCache = new NodeCache({ stdTTL: 3600 }); // 1 hour cache
+
 export const searchSongs = async (req, res) => {
   try {
     const { q } = req.query;
@@ -12,7 +15,18 @@ export const searchSongs = async (req, res) => {
       return res.status(400).json({ message: "Query is required" });
     }
 
+    // ⚡ CHECK CACHE
+    const cachedSongs = myCache.get(q);
+    if (cachedSongs) {
+      console.log(`[CACHE HIT] Serving ${q} from cache`);
+      return res.json(cachedSongs);
+    }
+
     const songs = await fetchAndCacheSongs(q);
+
+    // 💾 SET CACHE
+    myCache.set(q, songs);
+
     res.json(songs);
   } catch (error) {
     console.error(error.message);
