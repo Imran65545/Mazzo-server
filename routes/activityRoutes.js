@@ -10,8 +10,12 @@ import User from "../models/User.js";
  */
 router.post("/play", protect, async (req, res) => {
   try {
-    // Only increment for Lite users (Optimization: could do for all stats)
-    // But requirement is strict for Lite.
+    // Check for Free Limit (10 songs)
+    const user = await User.findById(req.user.id);
+    if (user.plan === "free" && user.songsPlayed >= 10) {
+      return res.status(403).json({ message: "Free limit reached" });
+    }
+
     await User.findByIdAndUpdate(req.user.id, { $inc: { songsPlayed: 1 } });
     res.json({ success: true });
   } catch (err) {
