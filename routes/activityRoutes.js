@@ -80,4 +80,22 @@ router.get("/liked", protect, async (req, res) => {
   res.json(songs);
 });
 
+/**
+ * ❤️ CHECK IF SONG IS LIKED
+ */
+router.get("/check-like", protect, async (req, res) => {
+  try {
+    const { videoId } = req.query;
+    const userId = req.user.id;
+
+    const activity = await UserActivity.findOne({ userId, videoId });
+    const isLiked = activity && activity.liked === true;
+
+    res.json({ liked: isLiked });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to check like status" });
+  }
+});
+
 export default router;
