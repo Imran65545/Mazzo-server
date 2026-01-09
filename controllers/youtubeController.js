@@ -46,7 +46,7 @@ export const fetchAndCacheSongs = async (query) => {
       part: "snippet",
       type: "video",
       videoCategoryId: "10", // Music category
-      maxResults: 5,
+      maxResults: 15
     },
   });
 
