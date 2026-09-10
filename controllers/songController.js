@@ -1,5 +1,6 @@
 import UserActivity from "../models/UserActivity.js";
 import Song from "../models/Song.js";
+import { prefetchSong } from "./streamController.js";
 
 // ❤️ Toggle Like: Handles saving song details + toggling activity
 export const toggleLike = async (req, res) => {
@@ -34,6 +35,9 @@ export const toggleLike = async (req, res) => {
       liked: true,
       timestamp: new Date(),
     });
+
+    // ⚡ Pre-fetch the song into cache so it plays instantly later
+    prefetchSong(videoId).catch(err => console.error("Prefetch error:", err));
 
     res.json({ liked: true, message: "Liked" });
   } catch (err) {

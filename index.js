@@ -9,6 +9,7 @@ import activityRoutes from "./routes/activityRoutes.js";
 import recommendationRoutes from "./routes/recommendationRoutes.js";
 import couponRoutes from "./routes/couponRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import streamRoutes from "./routes/streamRoutes.js";
 
 
 
@@ -39,6 +40,7 @@ app.use("/api/recommend", recommendationRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/coupons", couponRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/stream", streamRoutes);
 
 
 
